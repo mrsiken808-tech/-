@@ -1,2 +1,86 @@
 # -
 это сломанный браузер в формате .html он сломан и в нем ничего не работает и не будет 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Уточный Поиск</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+        }
+        img {
+            width: 200px;
+            height: auto;
+            margin: 20px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 200px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .results {
+            margin-top: 20px;
+            text-align: left;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Добро пожаловать на сайт с утками!</h1>
+    <div>
+        <img src="duck1.jpg" alt="Утка 1">
+        <img src="duck2.jpg" alt="Утка 2">
+    </div>
+
+    <form id="searchForm">
+        <input type="text" id="searchQuery" placeholder="Поиск...">
+        <input type="submit" value="Найти">
+    </form>
+
+    <div class="results" id="searchResults"></div>
+
+    <script>
+        const data = [
+            { title: "Первое описание утки", content: "Это утка, которая плавает." },
+            { title: "Второе описание утки", content: "Эта утка очень красивая." },
+            { title: "Интересные факты о утках", content: "Утки могут летать на большие расстояния." }
+        ];
+
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const query = document.getElementById('searchQuery').value.toLowerCase();
+            const results = data.filter(item => item.title.toLowerCase().includes(query) || item.content.toLowerCase().includes(query));
+            
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = ''; // Очистка предыдущих результатов
+
+            if (results.length > 0) {
+                results.forEach(result => {
+                    const resultDiv = document.createElement('div');
+                    resultDiv.innerHTML = `<strong>${result.title}</strong><br>${result.content}`;
+                    resultsContainer.appendChild(resultDiv);
+                });
+            } else {
+                resultsContainer.innerHTML = 'Результатов не найдено.';
+            }
+        });
+    </script>
+    
+</body>
+</html>
